@@ -1,0 +1,24 @@
+{
+  "name": "task",
+  "description": "",
+  "main": "index.js",
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "fabric.js": "fabric#^2.0.0",
+    "jquery.simplemodal": "https://github.com/ericmmartin/simplemodal.git#^1.4.5",
+    "bootstrap": "^4.0.0"
+  },
+  "devDependencies": {
+    "jquery-toolbar": "^1.0.10"
+  }
+}
+

@@ -1,0 +1,71 @@
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script src="/lib/fabric.js/dist/fabric.min.js"></script>
+<script src="/lib/jquery-toolbar/dist/jquery-toolbar.min.js"></script>
+<link href="/lib/jquery-toolbar/dist/jquery-toolbar.min.css" rel="stylesheet"/>
+<script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+  htmol,body {
+    height: 100%;
+    margin : 0;
+    overflow: hidden;
+    width: 100%;
+  }
+  #wrap {
+    height: 100%;
+    width: 100%;
+  }
+  #c {
+    background: #000000;
+    display: block;
+  }
+  #toolbar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 60px;
+    height: 150px;
+    z-index: 999;
+  }
+  .btn {
+    height:50px;
+    widows: 50px;
+    border:1px solid white;
+  }
+</style>
+
+
+<!--
+<div id="toolbar-options" class="hidden">
+  <a href="#">
+    <i class="fa fa-plane"></i>
+  </a>
+  <a href="#">
+    <i class="fa fa-car"></i>
+  </a>
+  <a href="#">
+    <i class="fa fa-bicycle"></i>
+  </a>
+</div>
+-->
+<div id="wrap">
+<canvas id="c"></canvas>
+</div>
+
+<div id="toolbar" class="btn-group-vertical" data-toggle="buttons">
+  <button id="pen" type="button" class="btn btn-default">ペン</button>
+  <button id="select" type="button" class="btn btn-default">選択</button>
+</div>
+
+<script src="app.js"></script>
+
+
+<!--
+<script>
+  $("#btn1").toolbar({
+    content: "#toolbar-options",
+    position: "bottom"
+  });
+</script>
+-->
+
