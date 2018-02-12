@@ -15,10 +15,12 @@
     "jquery": "^3.3.1",
     "fabric.js": "fabric#^2.0.0",
     "jquery.simplemodal": "https://github.com/ericmmartin/simplemodal.git#^1.4.5",
-    "bootstrap": "^4.0.0"
+    "bootstrap": "^4.0.0",
+    "drawer": "^3.2.2",
+    "iscroll": "^5.2.0",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "jquery-toolbar": "^1.0.10"
   }
 }
-
