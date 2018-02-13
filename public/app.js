@@ -33,14 +33,14 @@ let config = {
         backgroundColor: 'rgb(100,100,200)',
         selectionLineWidth: 5
     },
-    defaultProperty : {
+    defaultProperty: {
         fill: 'yellow',
         width: 100,
         height: 100,
         radius: 50,
         borderColor: 'white',
         cornerColor: 'green',
-        cornerSize: 6         
+        cornerSize: 6
     }
 };
 
@@ -59,8 +59,8 @@ class LayoutManager {
     nextPosition() {
         if (this.mode == 'ramdom') {
             return {
-                left: Math.floor(Math.random() * ($(window).width()-config.defaultProperty.width)),
-                top: Math.floor(Math.random() * ($(window).height()-config.defaultProperty.height))
+                left: Math.floor(Math.random() * ($(window).width() - config.defaultProperty.width)),
+                top: Math.floor(Math.random() * ($(window).height() - config.defaultProperty.height))
             }
         }
     }
@@ -78,7 +78,7 @@ class Canvas {
         this.index = 0;
         this.list = [];
         this.canvas = new fabric.Canvas(name, config.canvasProperty);
-        this.canvas.setBackgroundImage('assets/map.jpg',this.canvas.renderAll.bind(this.canvas));
+        this.canvas.setBackgroundImage('assets/map.jpg', this.canvas.renderAll.bind(this.canvas));
         this.initialize();
         this.registEvent();
         this.socket = new Socket();
@@ -103,7 +103,7 @@ class Canvas {
      */
     getObjectByID(id) {
         let ret = null;
-        this.list.forEach(function(o) {
+        this.list.forEach(function (o) {
             if (o.object.id == id) {
                 ret = o;
                 return;
@@ -116,10 +116,10 @@ class Canvas {
      */
     initialize() {
         let layout = new LayoutManager();
-        data.forEach(function(d) {
+        data.forEach(function (d) {
             $.extend(d.property, layout.nextPosition());
             this.add(new Task(this.index++, d));
-        },this);
+        }, this);
     }
     /**
      * 複数のObjectの移動
@@ -129,16 +129,17 @@ class Canvas {
         console.log(">> Canvas:modifyObjects");
         console.log("target.left = " + target.left);
         console.log("target.top = " + target.top);
+        console.log(target);
         let task;
-        target["_objects"].forEach(function(o) {
+        target["_objects"].forEach(function (o) {
             console.log(JSON.stringify(o));
             task = this.getObjectByID(o.id);
             task.modify({
-                "id":o.id,
-                "left":(target.left + o.left),
-                "top":(target.top + o.top),
-                "width":(o.width),
-                "height":(o.height)
+                "id": o.id,
+                "left": (target.left + o.left),
+                "top": (target.top + o.top),
+                "width": (o.width),
+                "height": (o.height)
             });
         }.bind(this));
     }
@@ -156,94 +157,102 @@ class Canvas {
      * イベントの登録
      */
     registEvent() {
-        this.canvas.on({
-            "object:added": function(e) {
-                console.log("■■■ event.object:added");
-                console.log(e);
-            }.bind(this),
-            "object:removed": function(e) {
-                //console.log("■■■ event.object:removed");
-                //console.log(e);
-            }.bind(this),
-            "object:modified": function(e) {
-                console.log("■■■ event.object:modified");
-                console.log(e);
-                if ("_objects" in e.target) {
-                    this.modifyObjects(e.target);
-                } else {
-                    this.modifyObject(e.target.id);
-                }
-            }.bind(this),
-            "object:rotating": function(e) {
-                console.log("■■■ event.object:rotating");
-                console.log(e);
-            }.bind(this),
-            "object:scaling": function(e) {
-                console.log("■■■ event.object:scaling");
-                console.log(e);
-            }.bind(this),
-            //"object:moving": function(e) {
-            //    console.log("object:moving");
-            //    console.log(e);
-            //}.bind(this),
-            "before:selection:cleared": function(e) {
-                console.log("■■■ event.before:selection:cleared");
-                console.log(e);
-            }.bind(this),
-            "selection:cleared": function(e) {
-                console.log("■■■ event.selection:cleared");
-                console.log(e);
-            }.bind(this),
-            "selection:updated": function(e) {
-                console.log("■■■ event.selection:updated");
-                console.log(e);
-            }.bind(this),
-            "selection:created": function(e) {
-                console.log("■■■ event.selection:created");
-                console.log(e);
-            }.bind(this),
-            "path:created": function(e) {
-                console.log("■■■ event.path:created");
-                console.log(e);
-            }.bind(this)
-            /*
-            "mouse:down": function(e) {
-                console.log("mouse:down");
-                console.log(e);
-            },
-            "mouse:move": function(e) {
-                console.log("mouse:move");
-                console.log(e);
-            },
-            "mouse:up": function(e) {
-                console.log("mouse:up");
-                console.log(e);
-            },
-            "mouse:over": function(e) {
-                console.log("mouse:over");
-                console.log(e);
-            },
-            "mouse:out": function(e) {
-                console.log("mouse:out");
-                console.log(e);
-            },
-            "mouse:dblclick": function(e) {
-                console.log("mouse:dblclick");
-                console.log(e);
-            } 
-            */          
-        });
-    }
+        this.canvas.on("object:added", function (e) {
+            console.log("■■■ event.object:added");
+            console.log(e);
+        }.bind(this))
 
-    /**
-     * ペンモードへ変更
-     * @param {*} mode 
-     */
-    drawingMode(mode) {
-        this.canvas.isDrawingMode = mode;
-        this.canvas.freeDrawingBrush.color = "#ffffff";
-        this.canvas.freeDrawingBrush.width = 2;
-    }
+        this.canvas.on("object:removed", function (e) {
+            //console.log("■■■ event.object:removed");
+            //console.log(e);
+        }.bind(this));
+
+        this.canvas.on("object:modified", function (e) {
+            console.log("■■■ event.object:modified");
+            console.log(e);
+            if ("_objects" in e.target) {
+                this.modifyObjects(e.target);
+            } else {
+                this.modifyObject(e.target.id);
+            }
+        }.bind(this));
+
+        this.canvas.on("object:rotating", function (e) {
+            console.log("■■■ event.object:rotating");
+            console.log(e);
+        }.bind(this));
+
+        this.canvas.on("object:scaling", function (e) {
+            console.log("■■■ event.object:scaling");
+            console.log(e);
+        }.bind(this));
+
+        //"object:moving": function(e) {
+        //    console.log("object:moving");
+        //    console.log(e);
+        //}.bind(this),
+
+        this.canvas.on("before:selection:cleared", function (e) {
+            console.log("■■■ event.before:selection:cleared");
+            console.log(e);
+        }.bind(this));
+
+        this.canvas.on("selection:cleared", function (e) {
+            console.log("■■■ event.selection:cleared");
+            console.log(e);
+        }.bind(this));
+
+        this.canvas.on("selection:updated", function (e) {
+            console.log("■■■ event.selection:updated");
+            console.log(e);
+        }.bind(this));
+
+        this.canvas.on("selection:created", function (e) {
+            console.log("■■■ event.selection:created");
+            console.log(e);
+        }.bind(this));
+
+        this.canvas.on("path:created", function (e) {
+            console.log("■■■ event.path:created");
+            console.log(e);
+        }.bind(this));
+        /*
+        "mouse:down": function(e) {
+            console.log("mouse:down");
+            console.log(e);
+        },
+        "mouse:move": function(e) {
+            console.log("mouse:move");
+            console.log(e);
+        },
+        "mouse:up": function(e) {
+            console.log("mouse:up");
+            console.log(e);
+        },
+        "mouse:over": function(e) {
+            console.log("mouse:over");
+            console.log(e);
+        },
+        "mouse:out": function(e) {
+            console.log("mouse:out");
+            console.log(e);
+        },
+        "mouse:dblclick": function(e) {
+            console.log("mouse:dblclick");
+            console.log(e);
+        } 
+        */
+}
+
+/**
+ * ペンモードへ変更
+ * @param {*} mode 
+ */
+drawingMode(mode) {
+    this.canvas.isDrawingMode = mode;
+    this.canvas.freeDrawingBrush.color = "#ffffff";
+    this.canvas.freeDrawingBrush.width = 2;
+}
 }
 
 /**
@@ -267,17 +276,17 @@ class Task {
         this.object.set(param);
         this.object.id = id;
         this.object.on({
-            'mouse:down': function(e) {
+            'mouse:down': function (e) {
                 console.log("mouse:down");
                 console.log(this.object.oCoords);
             },
-            'event:select': function(e) {
+            'event:select': function (e) {
                 console.log("object.event:select");
             },
-            'selection:created': function(e) {
+            'selection:created': function (e) {
                 console.log("object.selection:created")
             },
-            'selection:updated': function(e) {
+            'selection:updated': function (e) {
                 console.log("object.selection:updated")
             }
         });
@@ -301,10 +310,10 @@ class Task {
         console.log(">> Task:update = " + JSON.stringify(param));
         console.log(this);
         this.object.set({
-            "left":param.left,
-            "top":param.top,
-            "width":param.width,
-            "height":param.height
+            "left": param.left,
+            "top": param.top,
+            "width": param.width,
+            "height": param.height
         });
         this.object.isMoving = false;
         //console.log(this.canvas);
@@ -315,7 +324,7 @@ class Task {
 class Socket {
     constructor() {
         this.socket = io.connect("http://localhost:8888");
-        this.socket.on("rsvmove", function(d) {
+        this.socket.on("rsvmove", function (d) {
             console.log("on");
             let json = JSON.parse(d);
             this.canvas.update(json);
@@ -331,39 +340,39 @@ $(document).ready(() => {
     canvas = new Canvas('c');
 });
 
-$("#pen").click(function() {
+$("#pen").click(function () {
     canvas.drawingMode(true);
 });
-$("#select").click(function() {
+$("#select").click(function () {
     canvas.drawingMode(false);
 });
 
-$( '#c' ).attr("width",$( window ).width());
-$( '#c' ).attr("height", $( window ).height());
+$('#c').attr("width", $(window).width());
+$('#c').attr("height", $(window).height());
 console.log($(window).width())
 console.log($("#c").get(0).width);
 
-$(window).resize(function() {
+$(window).resize(function () {
     canvas.canvas.requestRenderAll();
 });
 
 
 $('.drawer').drawer({
     class: {
-      nav: 'drawer-nav',
-      toggle: 'drawer-toggle',
-      overlay: 'drawer-overlay',
-      open: 'drawer-open',
-      close: 'drawer-close',
-      dropdown: 'drawer-dropdown'
+        nav: 'drawer-nav',
+        toggle: 'drawer-toggle',
+        overlay: 'drawer-overlay',
+        open: 'drawer-open',
+        close: 'drawer-close',
+        dropdown: 'drawer-dropdown'
     },
     iscroll: {
-      // Configuring the iScroll
-      // https://github.com/cubiq/iscroll#configuring-the-iscroll
-      mouseWheel: true,
-      preventDefault: false
+        // Configuring the iScroll
+        // https://github.com/cubiq/iscroll#configuring-the-iscroll
+        mouseWheel: true,
+        preventDefault: false
     },
     showOverlay: true
-  });
+});
 
 
