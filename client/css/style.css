@@ -1,0 +1,27 @@
+htmol,body {
+    height: 100%;
+    margin : 0;
+    overflow: hidden;
+    width: 100%;
+  }
+  #wrap {
+    height: 100%;
+    width: 100%;
+  }
+  #c {
+    background: #000000;
+    display: block;
+  }
+  #toolbar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 60px;
+    height: 150px;
+    z-index: 999;
+  }
+  .btn {
+    height:50px;
+    widows: 50px;
+    border:1px solid white;
+  }

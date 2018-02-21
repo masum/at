@@ -3,4 +3,5 @@ npm-debug.log
 .*.swp
 node_modules/
 bower_components/
+pub/
 *~

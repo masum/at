@@ -2,7 +2,7 @@ var express = require("express");
 var path = require("path");
 var app = express();
 
-app.use('/pub', express.static('public'));
+app.use('/pub', express.static('pub'));
 app.use('/lib', express.static('bower_components'));
 
 
