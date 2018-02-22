@@ -1,13 +1,14 @@
 'use strict';
 
+import io from 'socket.io-client';
+
 export default class Socket {
     constructor() {
         this.socket = io.connect("http://localhost:8888");
-        this.socket.on("rsvmove", function (d) {
+        this.socket.on("rsvmove", (d) => {
             console.log("on");
-            let json = JSON.parse(d);
-            this.canvas.update(json);
-        }.bind(this));
+            this.canvas.update(JSON.parse(d));
+        });
     }
     emit(key, msg) {
         this.socket.emit(key, msg);

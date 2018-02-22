@@ -2,7 +2,7 @@
 
 import Config from './config.js';
 
-let $ = require('jquery');
+const $ = require('jquery');
 
 /** Class Layoutmanager */
 export default class LayoutManager {
@@ -12,7 +12,7 @@ export default class LayoutManager {
      */
     constructor(m = 'ramdom') {
         this.mode = m;
-        this.config = (new Config()).loadConfig()
+        this.config = (new Config()).loadConfig();
     }
     /**
      * 次の付箋紙の場所を決定する
@@ -22,7 +22,7 @@ export default class LayoutManager {
             return {
                 left: Math.floor(Math.random() * ($(window).width() - this.config.defaultProperty.width)),
                 top: Math.floor(Math.random() * ($(window).height() - this.config.defaultProperty.height))
-            }
+            };
         }
     }
 }

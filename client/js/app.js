@@ -1,17 +1,17 @@
 'use strict';
 
 import Canvas from './canvas.js';
-import Socket from './socket.js';
-import Bootstrap from 'bootstrap';
-import '../css/style.css'
+import './socket.js';
+import 'bootstrap';
+import '../css/style.css';
 //import 'drawer.min.css'
-import 'jquery'
-import 'fabric'
-import 'iscroll'
-import 'jquery-drawer'
-import '../assets/map.jpg'
-let $ = require('jquery');
-
+import 'jquery';
+import 'fabric';
+import 'iscroll';
+import 'jquery-drawer';
+import '../assets/map.jpg';
+const $ = require('jquery');
+/*
 let data = [
     {
         id: "123",
@@ -39,26 +39,26 @@ let data = [
         }
     }
 ]
-
+*/
 
 let canvas;
 $(document).ready(() => {
     canvas = new Canvas('c');
 });
 
-$("#pen").click(function () {
+$("#pen").click(() => {
     canvas.drawingMode(true);
 });
-$("#select").click(function () {
+$("#select").click(() => {
     canvas.drawingMode(false);
 });
 
 $('#c').attr("width", $(window).width());
 $('#c').attr("height", $(window).height());
-console.log($(window).width())
+console.log($(window).width());
 console.log($("#c").get(0).width);
 
-$(window).resize(function () {
+$(window).resize(() => {
     canvas.canvas.requestRenderAll();
 });
 

@@ -1,6 +1,6 @@
 'use strict';
 
-let conf = {
+const conf = {
     canvasProperty: {
         backgroundColor: 'rgb(100,100,200)',
         selectionLineWidth: 5
@@ -14,11 +14,9 @@ let conf = {
         cornerColor: 'green',
         cornerSize: 6
     }
-}
+};
 
 export default class Config {
-    constructor() {
-    }
     loadConfig() {
         return conf;
     }

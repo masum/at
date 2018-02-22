@@ -70,6 +70,12 @@ const app = {
             {
                 test: /\.(woff|woff2|eot|ttf|svg)$/,
                 loader: 'file-loader?name=./font/[name].[ext]'                
+            },
+            {
+                enforce: "pre",
+                test: /\.(js|jsx)$/,
+                loader: 'eslint-loader',
+                exclude: /node_modules/
             }
         ]
     },
@@ -79,6 +85,10 @@ const app = {
         }),
         new webpack.ProvidePlugin({
             IScroll: 'iscroll'
+        }),
+        new webpack.ProvidePlugin({
+            jQuery: "jquery",
+            $: "jquery"
         })
     ]    
 };

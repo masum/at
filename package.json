@@ -18,6 +18,8 @@
   "devDependencies": {
     "bootstrap": "^4.0.0",
     "css-loader": "^0.28.9",
+    "eslint": "^4.18.1",
+    "eslint-loader": "^1.9.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "fabric": "^2.0.1",
     "file-loader": "^1.1.7",
@@ -40,6 +42,7 @@
     "popper.js": "^1.12.9",
     "rimraf": "^2.6.2",
     "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4",
     "style-loader": "^0.20.2",
     "uglifyjs-webpack-plugin": "^1.2.0",
     "url-loader": "^0.6.2",

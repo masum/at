@@ -3,10 +3,11 @@
 import Task from './task.js';
 import Config from './config.js';
 import LayoutManager from './layoutmanager.js';
-import Data from './data.js'
+import Data from './data.js';
 import Socket from './socket.js';
+import fabric from 'fabric';
 
-let $ = require('jquery');
+const $ = require('jquery');
 
 /**
  * Canvas
@@ -37,7 +38,7 @@ export default class Canvas {
         this.canvas.add(task.object);
     }
     update(param) {
-        let task = this.getObjectByID(param.id);
+        const task = this.getObjectByID(param.id);
         task.update(param);
     }
     /**
@@ -46,7 +47,7 @@ export default class Canvas {
      */
     getObjectByID(id) {
         let ret = null;
-        this.list.forEach(function (o) {
+        this.list.forEach((o) => {
             if (o.object.id == id) {
                 ret = o;
                 return;
@@ -58,8 +59,8 @@ export default class Canvas {
      * Canvasの初期化処理
      */
     initialize() {
-        let layout = new LayoutManager();
-        Data.loadData().forEach(function (d) {
+        const layout = new LayoutManager();
+        Data.loadData().forEach((d) => {
             $.extend(d.property, layout.nextPosition());
             this.add(new Task(this.index++, d));
         }, this);
@@ -70,11 +71,11 @@ export default class Canvas {
      */
     modifyObjects(target) {
         console.log(">> Canvas:modifyObjects");
-        console.log("target.left = " + target.left);
-        console.log("target.top = " + target.top);
+        console.log("target.left = ",target.left);
+        console.log("target.top = ",target.top);
         console.log(target);
         let task;
-        target["_objects"].forEach(function (o) {
+        target["_objects"].forEach((o) => {
             console.log(JSON.stringify(o));
             task = this.getObjectByID(o.id);
             task.modify({
@@ -84,15 +85,15 @@ export default class Canvas {
                 "width": (o.width),
                 "height": (o.height)
             });
-        }.bind(this));
+        });
     }
     /**
      * Objectの移動
      * @param {*} id 
      */
     modifyObject(id) {
-        console.log(">> modifyObject : " + id);
-        let task = this.getObjectByID(id);
+        console.log(">> modifyObject : ",id);
+        const task = this.getObjectByID(id);
         console.log(task);
         task.modify();
     }
@@ -111,17 +112,17 @@ export default class Canvas {
      * イベントの登録
      */
     registEvent() {
-        this.canvas.on("object:added", function (e) {
+        this.canvas.on("object:added", (e) => {
             console.log("■■■ event.object:added");
             console.log(e);
-        }.bind(this));
+        });
 
-        this.canvas.on("object:removed", function (e) {
+        this.canvas.on("object:removed", (e) => {
             //console.log("■■■ event.object:removed");
-            //console.log(e);
-        }.bind(this));
+            console.log(e);
+        });
 
-        this.canvas.on("object:modified", function (e) {
+        this.canvas.on("object:modified", (e) => {
             console.log("■■■ event.object:modified");
             console.log(e);
             if ("_objects" in e.target) {
@@ -129,47 +130,48 @@ export default class Canvas {
             } else {
                 this.modifyObject(e.target.id);
             }
-        }.bind(this));
+        });
 
-        this.canvas.on("object:rotating", function (e) {
+        this.canvas.on("object:rotating", (e) => {
             console.log("■■■ event.object:rotating");
             console.log(e);
-        }.bind(this));
+        });
 
-        this.canvas.on("object:scaling", function (e) {
+        this.canvas.on("object:scaling", (e) => {
             console.log("■■■ event.object:scaling");
             console.log(e);
-        }.bind(this));
+        });
 
-        //"object:moving": function(e) {
+        //"object:moving": (e) => {
         //    console.log("object:moving");
         //    console.log(e);
-        //}.bind(this),
+        //},
 
-        this.canvas.on("before:selection:cleared", function (e) {
+        this.canvas.on("before:selection:cleared", (e) => {
             console.log("■■■ event.before:selection:cleared");
             console.log(e);
-        }.bind(this));
+        });
 
-        this.canvas.on("selection:cleared", function (e) {
+        this.canvas.on("selection:cleared", (e) => {
             console.log("■■■ event.selection:cleared");
             console.log(e);
-        }.bind(this));
+        });
 
-        this.canvas.on("selection:updated", function (e) {
+        this.canvas.on("selection:updated", (e) => {
             console.log("■■■ event.selection:updated");
             console.log(e);
-        }.bind(this));
+        });
 
-        this.canvas.on("selection:created", function (e) {
+        this.canvas.on("selection:created", (e) => {
             console.log("■■■ event.selection:created");
             console.log(e);
-        }.bind(this));
+        });
 
-        this.canvas.on("path:created", function (e) {
+        this.canvas.on("path:created", (e) => {
             console.log("■■■ event.path:created");
             console.log(e);
-        }.bind(this));
+        });
+
         /*
         "mouse:down": function(e) {
             console.log("mouse:down");

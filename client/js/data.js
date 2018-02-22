@@ -1,6 +1,6 @@
 'use strict';
 
-let dummy = [
+const dummy = [
     {
         id: "123",
         property: {
@@ -29,8 +29,6 @@ let dummy = [
 ];
 
 export default class Data {
-    constructor() {
-    }
     static loadData() {
         return dummy;
     }
